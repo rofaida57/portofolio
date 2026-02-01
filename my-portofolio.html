@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafida | Web Designer & Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Control bar -->
+    <div class="control-bar">
+        <div class="control-buttons">
+            <div class="control-btn" id="language-toggle">
+                <i class="fas fa-globe"></i>
+                <div class="language-indicator" id="lang-indicator">EN</div>
+            </div>
+            <div class="control-btn" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1 id="logo-text">Rafida</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home" id="nav-home">Home</a>
+            <a href="#skills" id="nav-skills">Skills</a>
+            <a href="#projects" id="nav-projects">Projects</a>
+            <a href="#experience" id="nav-experience">Experience</a>
+            <a href="#contact" id="nav-contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2 id="hero-title">Rafida Web Designer & Developer</h2>
+            <p id="hero-description">I am a creative web designer and developer with experience in creating engaging and functional digital solutions. Passionate about modern design and precise programming, I strive to transform ideas into exceptional digital experiences.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary" id="projects-btn">View My Projects</a>
+                <a href="#contact" class="btn btn-secondary" id="contact-btn">Contact Me</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="profile-container">
+                <img src="téléchargé (74).jpeg" alt="Rafida">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills section -->
+    <section class="skills" id="skills">
+        <div class="section-container">
+            <h2 class="section-title" id="skills-title">My Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 id="frontend-title">Frontend Development</h3>
+                    <ul class="skill-list">
+                        <li><span id="html-skill">HTML5 & CSS3</span> <span class="skill-level" id="html-level">Advanced</span></li>
+                        <li><span id="js-skill">JavaScript</span> <span class="skill-level" id="js-level">Advanced</span></li>
+                        <li><span id="react-skill">React.js</span> <span class="skill-level" id="react-level">Intermediate</span></li>
+                        <li><span id="bootstrap-skill">Bootstrap</span> <span class="skill-level" id="bootstrap-level">Advanced</span></li>
+                        <li><span id="responsive-skill">Responsive Design</span> <span class="skill-level" id="responsive-level">Advanced</span></li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 id="backend-title">Backend Development</h3>
+                    <ul class="skill-list">
+                        <li><span id="node-skill">Node.js</span> <span class="skill-level" id="node-level">Intermediate</span></li>
+                        <li><span id="python-skill">Python</span> <span class="skill-level" id="python-level">Advanced</span></li>
+                        <li><span id="php-skill">PHP</span> <span class="skill-level" id="php-level">Intermediate</span></li>
+                        <li><span id="java-skill">Java</span> <span class="skill-level" id="java-level">Beginner</span></li>
+                        <li><span id="cpp-skill">C/C++</span> <span class="skill-level" id="cpp-level">Intermediate</span></li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 id="database-title">Databases</h3>
+                    <ul class="skill-list">
+                        <li><span id="mysql-skill">MySQL</span> <span class="skill-level" id="mysql-level">Intermediate</span></li>
+                        <li><span id="mongodb-skill">MongoDB</span> <span class="skill-level" id="mongodb-level">Beginner</span></li>
+                        <li><span id="firebase-skill">Firebase</span> <span class="skill-level" id="firebase-level">Intermediate</span></li>
+                        <li><span id="sqlite-skill">SQLite</span> <span class="skill-level" id="sqlite-level">Advanced</span></li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 id="tools-title">Tools & Technologies</h3>
+                    <ul class="skill-list">
+                        <li><span id="git-skill">Git & GitHub</span> <span class="skill-level" id="git-level">Advanced</span></li>
+                        <li><span id="linux-skill">Linux</span> <span class="skill-level" id="linux-level">Intermediate</span></li>
+                        <li><span id="docker-skill">Docker</span> <span class="skill-level" id="docker-level">Beginner</span></li>
+                        <li><span id="api-skill">RESTful APIs</span> <span class="skill-level" id="api-level">Intermediate</span></li>
+                        <li><span id="aws-skill">AWS Basics</span> <span class="skill-level" id="aws-level">Beginner</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects section -->
+    <section class="projects" id="projects">
+        <div class="section-container">
+            <h2 class="section-title" id="projects-title">ia reference</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot 2025-09-07 082258.png" alt="E-commerce Store">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project1-title">ia reference</h3>
+                        <p id="project1-desc">An e-commerce platform with integrated payment system and advanced inventory management, featuring a modern and user-friendly design.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot1 2025-09-07 082429.png" alt="Blogging Platform">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project2-title">Professional Blogging Platform</h3>
+                        <p id="project2-desc">A platform for publishing articles and blogs with an advanced commenting system and flexible content management.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot2 2025-09-07 082557.png" alt="Mobile App">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project3-title">Mobile Task Management App</h3>
+                        <p id="project3-desc">A task management application with advanced features such as alerts, statistics, and cloud synchronization.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot4 2025-09-07 082711.png" alt="Mobile App">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project3-title">Mobile Task Management App</h3>
+                        <p id="project3-desc">A task management application with advanced features such as alerts, statistics, and cloud synchronization.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot5 2025-09-07 082826.png" alt="Mobile App">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project3-title">Mobile Task Management App</h3>
+                        <p id="project3-desc">A task management application with advanced features such as alerts, statistics, and cloud synchronization.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <div class="project-img">
+                        <img src="fotos/Screenshot6 2025-09-07 083101.png" alt="Mobile App">
+                    </div>
+                    <div class="project-content">
+                        <h3 id="project3-title">Mobile Task Management App</h3>
+                        <p id="project3-desc">A task management application with advanced features such as alerts, statistics, and cloud synchronization.</p>
+                        <div class="project-footer">
+                            <div class="tech-list">
+                                <span class="tech-item" id="tech1-1">html</span>
+                                <span class="tech-item" id="tech1-2">css</span>
+                                <span class="tech-item" id="tech1-3">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience section -->
+    <section class="experience" id="experience">
+        <div class="section-container">
+            <h2 class="section-title" id="experience-title">My Academic & Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date" id="exp1-date">2021 - Present</span>
+                        <h3 id="exp1-title">Computer Science Student</h3>
+                        <p id="exp1-desc">I am currently in my third year of Computer Science, focusing on developing my skills in programming, system design, and artificial intelligence.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date" id="exp2-date">2022 - Present</span>
+                        <h3 id="exp2-title">Freelance Web Developer</h3>
+                        <p id="exp2-desc">Working as a freelance web developer, I have designed and implemented multiple websites and applications for clients across various industries.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date" id="exp3-date">2020 - 2021</span>
+                        <h3 id="exp3-title">Intern at Tech Company</h3>
+                        <p id="exp3-desc">Interned at a leading tech company, where I gained practical experience in web development and technical project management.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date" id="exp4-date">2019 - 2020</span>
+                        <h3 id="exp4-title">Specialized Programming Courses</h3>
+                        <p id="exp4-desc">Completed several specialized courses in web development and programming, which helped me build a strong foundation in this field.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <h2 class="section-title" id="contact-title">Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="email-title">Email</h3>
+                            <p>rafida@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="phone-title">Phone</h3>
+                            <p>+123 456 7890</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3 id="location-title">Location</h3>
+                            <p>City, Country</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name" id="form-name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" id="form-email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" id="form-subject">Subject</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" id="form-message">Message</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="form-btn" id="form-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo" id="footer-logo">Rafida</div>
+            <p class="footer-text" id="footer-text">A web designer and developer specialized in creating engaging and functional digital solutions that meet client needs and exceed expectations.</p>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
+            </div>
+            <div class="copyright" id="copyright">© 2023 Rafida. All Rights Reserved.</div>
+        </div>
+    </footer>
+<script src="script.js" ></script>
+</body>
+</html>
