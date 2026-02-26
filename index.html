@@ -3,259 +3,575 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rofida | Software Engineer Portfolio</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Rafida | Software Engineer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <style>
-        [data-animate] { transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1); }
-        [data-animate].is-visible { opacity: 1 !important; transform: translateY(0) translateX(0) scale(1) !important; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
-        @keyframes blob { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-slow-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
-        .animation-delay-500 { animation-delay: 0.5s; }
-        .animation-delay-1000 { animation-delay: 1s; }
-        .animate-spin-slow { animation: spin-slow 20s linear infinite; }
-        .animate-spin-slow-reverse { animation: spin-slow-reverse 15s linear infinite; }
-        .animate-gradient { background-size: 200% 200%; animation: gradient 3s ease infinite; }
-        .animate-fade-in-up { animation: fade-in-up 1s ease-out; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; }
         html { scroll-behavior: smooth; }
+        
+        /* Custom Cursor */
+        .custom-cursor {
+            pointer-events: none;
+        }
+        
+        /* Name Animation */
+        @keyframes glowPulse {
+          0%, 100% { 
+            filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5));
+            transform: scale(1);
+          }
+          50% { 
+            filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.8));
+            transform: scale(1.02);
+          }
+        }
+        
+        @keyframes letterFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        .name-letter {
+          display: inline-block;
+          animation: letterFloat 3s ease-in-out infinite;
+        }
+        
+        .name-letter:nth-child(1) { animation-delay: 0s; }
+        .name-letter:nth-child(2) { animation-delay: 0.1s; }
+        .name-letter:nth-child(3) { animation-delay: 0.2s; }
+        .name-letter:nth-child(4) { animation-delay: 0.3s; }
+        .name-letter:nth-child(5) { animation-delay: 0.4s; }
+        .name-letter:nth-child(6) { animation-delay: 0.5s; }
+        
+        .animated-name {
+          animation: glowPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ✅ FIX: Scroll Animation Classes — تعمل الآن بشكل صحيح */
+        .scroll-animate {
+          opacity: 0;
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .scroll-animate.fade-up {
+          transform: translateY(50px);
+        }
+        
+        /* ✅ FIX: دعم transition-delay عبر data attributes بدلاً من inline style */
+        .scroll-animate[data-delay="1"] { transition-delay: 0.1s; }
+        .scroll-animate[data-delay="2"] { transition-delay: 0.2s; }
+        .scroll-animate[data-delay="3"] { transition-delay: 0.3s; }
+        .scroll-animate[data-delay="4"] { transition-delay: 0.4s; }
+        
+        .scroll-animate.fade-left {
+          transform: translateX(-50px);
+        }
+        
+        .scroll-animate.fade-right {
+          transform: translateX(50px);
+        }
+        
+        .scroll-animate.scale {
+          transform: scale(0.8);
+        }
+        
+        /* ✅ FIX: show class يُعيد كل التحويلات لصفر */
+        .scroll-animate.show {
+          opacity: 1;
+          transform: translateY(0) translateX(0) scale(1);
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        .spin-slow { animation: spin 20s linear infinite; }
+        .animate-blob { animation: blob 7s infinite; }
+        
+        /* ✅ FIX: أضفنا animation-delay للـ blob orbs */
+        .animation-delay-2s { animation-delay: 2s; }
+        .animation-delay-4s { animation-delay: 4s; }
+        
+        .fade-in-up { animation: fadeInUp 1s ease-out; }
+        
         ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ec4899, #a855f7); border-radius: 5px; }
         ::selection { background-color: rgba(236, 72, 153, 0.3); color: #fff; }
+
+        /* ✅ FIX: cursor style بشكل صحيح */
+        #cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #f472b6;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+        }
+        
+        /* تكبير المؤشر عند hover على العناصر القابلة للنقر */
+        body.cursor-hover #cursor {
+            width: 48px;
+            height: 48px;
+            border-color: #a855f7;
+            background-color: rgba(168, 85, 247, 0.1);
+        }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
     
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { 
-          Github, Linkedin, Mail, ExternalLink, Code, Database, 
-          Layout, Server, Award, BookOpen, Briefcase, ChevronDown, 
-          Sparkles, Zap, Heart 
-        } = lucide;
-
-        const Portfolio = () => {
-          const [activeSection, setActiveSection] = useState('home');
-          const [isScrolled, setIsScrolled] = useState(false);
-          const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-          const [cursorVariant, setCursorVariant] = useState('default');
-          const [isLoading, setIsLoading] = useState(true);
-          const [scrollProgress, setScrollProgress] = useState(0);
-          const [isDarkMode, setIsDarkMode] = useState(true);
-
-          useEffect(() => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-              setIsDarkMode(savedTheme === 'dark');
-            }
-          }, []);
-
-          const toggleTheme = () => {
-            const newMode = !isDarkMode;
-            setIsDarkMode(newMode);
-            localStorage.setItem('theme', newMode ? 'dark' : 'light');
-          };
-
-          useEffect(() => {
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                  }
-                });
-              },
-              { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-            );
-
-            if (!isLoading) {
-              setTimeout(() => {
-                const elements = document.querySelectorAll('[data-animate]');
-                elements.forEach((el) => observer.observe(el));
-              }, 100);
-            }
-
-            return () => observer.disconnect();
-          }, [isLoading]);
-
-          useEffect(() => {
-            setTimeout(() => setIsLoading(false), 2000);
-
-            const handleScroll = () => {
-              const scrollTop = window.scrollY;
-              const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-              const progress = (scrollTop / docHeight) * 100;
-              setScrollProgress(progress);
-              setIsScrolled(scrollTop > 50);
-              
-              const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
-              const current = sections.find(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                  const rect = element.getBoundingClientRect();
-                  return rect.top <= 100 && rect.bottom >= 100;
-                }
-                return false;
-              });
-              if (current) setActiveSection(current);
-            };
-
-            const handleMouseMove = (e) => {
-              setMousePosition({ x: e.clientX, y: e.clientY });
-            };
-
-            window.addEventListener('scroll', handleScroll);
-            window.addEventListener('mousemove', handleMouseMove);
-            return () => {
-              window.removeEventListener('scroll', handleScroll);
-              window.removeEventListener('mousemove', handleMouseMove);
-            };
-          }, []);
-
-          const skills = [
-            { name: 'Frontend', icon: React.createElement(Layout, { className: "w-8 h-8" }), items: ['HTML5 & CSS3', 'JavaScript', 'React.js', 'Bootstrap'], color: 'from-pink-400 to-rose-500' },
-            { name: 'Backend', icon: React.createElement(Server, { className: "w-8 h-8" }), items: ['Node.js', 'Python', 'PHP', 'Java'], color: 'from-purple-400 to-indigo-500' },
-            { name: 'Database', icon: React.createElement(Database, { className: "w-8 h-8" }), items: ['MySQL', 'MongoDB', 'Firebase', 'SQLite'], color: 'from-blue-400 to-cyan-500' },
-            { name: 'Tools', icon: React.createElement(Code, { className: "w-8 h-8" }), items: ['Git & GitHub', 'Linux', 'Docker', 'RESTful APIs'], color: 'from-violet-400 to-purple-500' }
-          ];
-
-          const projects = [
-            { title: 'IA Reference Platform', description: 'An intelligent reference platform with advanced search capabilities', tech: ['HTML', 'CSS', 'JavaScript'], image: '🤖', link: 'https://rofaida57.github.io/portofolio/', color: 'from-pink-500 via-purple-500 to-indigo-500' },
-            { title: 'Professional Blogging Platform', description: 'A platform for publishing articles with advanced commenting system', tech: ['HTML', 'CSS', 'JavaScript'], image: '📝', link: 'https://rofaida57.github.io/portofolio/', color: 'from-purple-500 via-pink-500 to-rose-500' },
-            { title: 'Task Management Application', description: 'Mobile-responsive task manager with cloud synchronization', tech: ['HTML', 'CSS', 'JavaScript'], image: '✓', link: 'https://rofaida57.github.io/portofolio/', color: 'from-blue-500 via-cyan-500 to-teal-500' },
-            { title: 'E-Commerce Dashboard', description: 'Modern admin dashboard with analytics', tech: ['HTML', 'CSS', 'JavaScript'], image: '🛍️', link: 'https://rofaida57.github.io/portofolio/', color: 'from-rose-500 via-pink-500 to-fuchsia-500' },
-            { title: 'Social Media Analytics', description: 'Analytics dashboard for tracking engagement', tech: ['HTML', 'CSS', 'JavaScript'], image: '📊', link: 'https://rofaida57.github.io/portofolio/', color: 'from-indigo-500 via-purple-500 to-pink-500' },
-            { title: 'Portfolio Showcase', description: 'Interactive portfolio with modern animations', tech: ['HTML', 'CSS', 'JavaScript'], image: '💼', link: 'https://rofaida57.github.io/portofolio/', color: 'from-violet-500 via-purple-500 to-fuchsia-500' }
-          ];
-
-          const experiences = [
-            { year: '2021 - Present', title: 'Computer Science Student', company: 'University', description: 'Third year focusing on programming and AI', icon: React.createElement(BookOpen, { className: "w-6 h-6" }) },
-            { year: '2022 - Present', title: 'Freelance Web Developer', company: 'Self-Employed', description: 'Designed websites for various clients', icon: React.createElement(Briefcase, { className: "w-6 h-6" }) },
-            { year: '2020 - 2021', title: 'Tech Intern', company: 'Tech Company', description: 'Web development experience', icon: React.createElement(Zap, { className: "w-6 h-6" }) }
-          ];
-
-          if (isLoading) {
-            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900 flex items-center justify-center" },
-              React.createElement('div', { className: "text-center" },
-                React.createElement('div', { className: "relative w-32 h-32 mx-auto mb-8" },
-                  React.createElement('div', { className: "absolute inset-0 border-4 border-transparent border-t-pink-400 rounded-full animate-spin" }),
-                  React.createElement('div', { className: "absolute inset-2 border-4 border-transparent border-t-purple-400 rounded-full animate-spin", style: { animationDirection: 'reverse', animationDuration: '1s' } }),
-                  React.createElement('div', { className: "absolute inset-4 border-4 border-transparent border-t-rose-400 rounded-full animate-spin", style: { animationDuration: '0.7s' } })
-                ),
-                React.createElement('h2', { className: "text-4xl font-bold text-white mb-4" }, 'Rafida'),
-                React.createElement('p', { className: "text-pink-200 animate-pulse" }, 'Loading Portfolio...')
-              )
-            );
-          }
-
-          return React.createElement('div', { className: `min-h-screen ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white' : 'bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 text-gray-900'} overflow-x-hidden relative transition-colors duration-500` },
+    <!-- ✅ FIX: Custom Cursor — تمت إزالة hidden lg:block من هنا وسيتحكم فيه JS -->
+    <div id="cursor" style="display:none;">
+        <div class="absolute inset-0 bg-pink-400 rounded-full opacity-20 animate-ping"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-black/80 backdrop-blur-2xl shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="text-3xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent hover:scale-110 transition-transform cursor-pointer">
+                Rafida
+            </div>
+            <div class="hidden md:flex space-x-10">
+                <a href="#home" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">Home</a>
+                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">About</a>
+                <a href="#skills" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">Skills</a>
+                <a href="#projects" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">Projects</a>
+                <a href="#experience" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">Experience</a>
+                <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-pink-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+        <!-- Animated Gradient Orbs -->
+        <div class="absolute inset-0">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2s"></div>
+            <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4s"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8 fade-in-up">
+                <div class="inline-block">
+                    <span class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg">
+                        ✨ Software Engineering Student
+                    </span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-black leading-none animated-name">
+                    <span class="block bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span class="name-letter">R</span><span class="name-letter">a</span><span class="name-letter">f</span><span class="name-letter">i</span><span class="name-letter">d</span><span class="name-letter">a</span>
+                    </span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+                    I'm a passionate developer who transforms complex problems into elegant solutions. 
+                    Currently mastering <span class="text-purple-400 font-bold">Full-Stack Development</span> and creating experiences that inspire.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#projects" class="px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-105">
+                        Explore Work →
+                    </a>
+                    <a href="#contact" class="px-10 py-5 border-2 border-pink-400 rounded-full font-bold text-lg hover:bg-pink-400 hover:text-black transition-all duration-300 hover:scale-105">
+                        Let's Connect
+                    </a>
+                </div>
+                
+                <div class="flex gap-6 pt-6">
+                    <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-white/5 backdrop-blur-lg border border-white/10 flex items-center justify-center hover:border-pink-400 hover:scale-110 transition-all">
+                        <span class="text-2xl">💻</span>
+                    </a>
+                    <a href="#" class="w-14 h-14 rounded-full bg-white/5 backdrop-blur-lg border border-white/10 flex items-center justify-center hover:border-pink-400 hover:scale-110 transition-all">
+                        <span class="text-2xl">💼</span>
+                    </a>
+                    <a href="mailto:rafida@example.com" class="w-14 h-14 rounded-full bg-white/5 backdrop-blur-lg border border-white/10 flex items-center justify-center hover:border-pink-400 hover:scale-110 transition-all">
+                        <span class="text-2xl">📧</span>
+                    </a>
+                </div>
+            </div>
             
-            React.createElement('div', { className: "fixed top-0 left-0 w-full h-1 bg-gray-800 z-50" },
-              React.createElement('div', { className: "h-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 transition-all duration-300", style: { width: `${scrollProgress}%` } })
-            ),
+            <div class="relative float">
+                <div class="relative w-96 h-96 mx-auto">
+                    <img src="sparkles.png" alt="sparkles" class="absolute inset-0 w-full h-full object-contain z-20 pointer-events-none animate-pulse">
+                    <div class="absolute inset-0 border-4 border-pink-400/30 rounded-full spin-slow"></div>
+                    <div class="absolute inset-8 border-4 border-purple-400/30 rounded-full" style="animation: spin 15s linear infinite reverse;"></div>
+                    <div class="absolute inset-16 border-4 border-blue-400/30 rounded-full spin-slow"></div>
+                    <div class="absolute inset-24 rounded-full overflow-hidden shadow-2xl shadow-pink-500/50 border-4 border-white/10 hover:scale-110 transition-all duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500/50 via-purple-500/50 to-blue-500/50 mix-blend-overlay z-10"></div>
+                        <img src="téléchargé (74).jpeg" alt="Rafida" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center text-2xl shadow-xl z-30" style="animation: float 2s ease-in-out infinite;">
+                        💻
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center text-2xl shadow-xl z-30" style="animation: float 2s ease-in-out infinite 1s;">
+                        🚀
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-6xl font-black text-center mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                About Me
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-16"></div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- ✅ FIX: استبدلنا transition-delay inline style بـ data-delay attribute -->
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mb-6 text-3xl">
+                        🏆
+                    </div>
+                    <h3 class="text-4xl font-black mb-2">3.8 GPA</h3>
+                    <p class="text-gray-400">Academic Excellence</p>
+                </div>
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all duration-300" data-delay="1">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 text-3xl">
+                        💻
+                    </div>
+                    <h3 class="text-4xl font-black mb-2">15+</h3>
+                    <p class="text-gray-400">Projects Completed</p>
+                </div>
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all duration-300" data-delay="2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 text-3xl">
+                        💼
+                    </div>
+                    <h3 class="text-4xl font-black mb-2">2 Years</h3>
+                    <p class="text-gray-400">Experience</p>
+                </div>
+            </div>
+            
+            <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl p-12">
+                <p class="text-xl text-gray-300 leading-relaxed text-center max-w-4xl mx-auto">
+                    I'm a <span class="text-pink-400 font-bold">third-year Computer Science student</span> with an unwavering passion for creating elegant digital solutions. 
+                    My journey in tech is driven by curiosity and the desire to <span class="text-purple-400 font-bold">transform complex challenges</span> into intuitive, beautiful experiences.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-6xl font-black text-center mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                Technical Arsenal
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-16"></div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="scroll-animate scale bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:-translate-y-2 transition-all">
+                    <div class="w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-2xl flex items-center justify-center mb-6 text-4xl">
+                        🎨
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Frontend</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-pink-400 mr-3"></span>HTML5 & CSS3</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-pink-400 mr-3"></span>JavaScript</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-pink-400 mr-3"></span>React.js</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-pink-400 mr-3"></span>Bootstrap</li>
+                    </ul>
+                </div>
+                
+                <div class="scroll-animate scale bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:-translate-y-2 transition-all" data-delay="1">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 text-4xl">
+                        ⚙️
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Backend</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-purple-400 mr-3"></span>Node.js</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-purple-400 mr-3"></span>Python</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-purple-400 mr-3"></span>PHP</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-purple-400 mr-3"></span>Java</li>
+                    </ul>
+                </div>
+                
+                <div class="scroll-animate scale bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:-translate-y-2 transition-all" data-delay="2">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 text-4xl">
+                        🗄️
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Database</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-blue-400 mr-3"></span>MySQL</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-blue-400 mr-3"></span>MongoDB</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-blue-400 mr-3"></span>Firebase</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-blue-400 mr-3"></span>SQLite</li>
+                    </ul>
+                </div>
+                
+                <div class="scroll-animate scale bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 hover:-translate-y-2 transition-all" data-delay="3">
+                    <div class="w-20 h-20 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center mb-6 text-4xl">
+                        🛠️
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6">Tools</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-violet-400 mr-3"></span>Git & GitHub</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-violet-400 mr-3"></span>Linux</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-violet-400 mr-3"></span>Docker</li>
+                        <li class="flex items-center text-gray-300"><span class="w-2 h-2 rounded-full bg-violet-400 mr-3"></span>RESTful APIs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-6xl font-black text-center mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                Featured Projects
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-4"></div>
+            <p class="text-xl text-gray-400 text-center mb-16">Crafted with passion and precision</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all">
+                    <div class="h-64 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center text-8xl">🤖</div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3">IA Reference Platform</h3>
+                        <p class="text-gray-400 mb-6">Intelligent reference platform with advanced search capabilities</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">HTML</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">CSS</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">JavaScript</span>
+                        </div>
+                        <!-- ✅ FIX: أضفنا target="_blank" و rel="noopener noreferrer" لجميع الروابط الخارجية -->
+                        <a href="https://rofaida57.github.io/portofolio/" target="_blank" rel="noopener noreferrer" class="text-pink-400 font-bold hover:text-purple-400">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all" data-delay="2">
+                    <div class="h-64 bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500 flex items-center justify-center text-8xl">📝</div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3">Blogging Platform</h3>
+                        <p class="text-gray-400 mb-6">Platform for publishing articles with advanced commenting system</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">HTML</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">CSS</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">JavaScript</span>
+                        </div>
+                        <a href="https://rofaida57.github.io/portofolio/" target="_blank" rel="noopener noreferrer" class="text-pink-400 font-bold hover:text-purple-400">View Project →</a>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate fade-up bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all" data-delay="3">
+                    <div class="h-64 bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 flex items-center justify-center text-8xl">✓</div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3">Task Manager</h3>
+                        <p class="text-gray-400 mb-6">Mobile-responsive task manager with cloud synchronization</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">HTML</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">CSS</span>
+                            <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300">JavaScript</span>
+                        </div>
+                        <a href="https://rofaida57.github.io/portofolio/" target="_blank" rel="noopener noreferrer" class="text-pink-400 font-bold hover:text-purple-400">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-6xl font-black text-center mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                My Journey
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-16"></div>
+            
+            <div class="relative">
+                <div class="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-500 via-purple-500 to-blue-500 rounded-full"></div>
+                
+                <div class="relative pl-24 pb-16">
+                    <div class="absolute left-5 w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full shadow-2xl flex items-center justify-center text-xl">
+                        📚
+                    </div>
+                    <div class="scroll-animate fade-left bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all">
+                        <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300 inline-block mb-4">2021 - Present</span>
+                        <h3 class="text-3xl font-bold mb-2">Computer Science Student</h3>
+                        <p class="text-purple-400 font-medium mb-4 text-lg">University</p>
+                        <p class="text-gray-400 leading-relaxed text-lg">Third year focusing on programming, system design, and AI</p>
+                    </div>
+                </div>
+                
+                <div class="relative pl-24 pb-16">
+                    <div class="absolute left-5 w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full shadow-2xl flex items-center justify-center text-xl">
+                        💼
+                    </div>
+                    <div class="scroll-animate fade-left bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all" data-delay="2">
+                        <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300 inline-block mb-4">2022 - Present</span>
+                        <h3 class="text-3xl font-bold mb-2">Freelance Developer</h3>
+                        <p class="text-purple-400 font-medium mb-4 text-lg">Self-Employed</p>
+                        <p class="text-gray-400 leading-relaxed text-lg">Designed websites for clients across various industries</p>
+                    </div>
+                </div>
+                
+                <div class="relative pl-24">
+                    <div class="absolute left-5 w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full shadow-2xl flex items-center justify-center text-xl">
+                        ⚡
+                    </div>
+                    <div class="scroll-animate fade-left bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-105 transition-all" data-delay="4">
+                        <span class="px-4 py-2 bg-pink-500/20 border border-pink-400/30 rounded-full text-sm text-pink-300 inline-block mb-4">2020 - 2021</span>
+                        <h3 class="text-3xl font-bold mb-2">Tech Intern</h3>
+                        <p class="text-purple-400 font-medium mb-4 text-lg">Tech Company</p>
+                        <p class="text-gray-400 leading-relaxed text-lg">Web development and project management experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-6xl font-black mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                Let's Create Together
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-8"></div>
+            <p class="text-2xl text-gray-300 max-w-2xl mx-auto mb-16">
+                Have an exciting project in mind? Let's bring your vision to life!
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <a href="mailto:rafida@example.com" class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-110 hover:-translate-y-2 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+                        📧
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Email</h3>
+                    <p class="text-gray-400">rafida@example.com</p>
+                </a>
+                
+                <a href="#" class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-110 hover:-translate-y-2 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+                        💼
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">LinkedIn</h3>
+                    <p class="text-gray-400">Connect with me</p>
+                </a>
+                
+                <a href="https://github.com/rofaida57" target="_blank" rel="noopener noreferrer" class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 hover:scale-110 hover:-translate-y-2 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+                        💻
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">GitHub</h3>
+                    <p class="text-gray-400">@rofaida57</p>
+                </a>
+            </div>
+            
+            <a href="mailto:rafida@example.com" class="inline-flex items-center gap-3 px-12 py-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full font-bold text-xl hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110">
+                💜 Start a Conversation ✨
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-900/50 via-purple-900/50 to-blue-900/50"></div>
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <h3 class="text-4xl font-black bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                Rafida
+            </h3>
+            <p class="text-gray-400 text-lg mb-8">
+                Crafting digital experiences with 💜 and code
+            </p>
+            <div class="text-gray-500 text-sm">
+                © 2024 Rafida. Designed & Built with passion
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ✅ FIX: Custom Cursor — يعمل فقط على الشاشات الكبيرة (lg+)
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let cursorActive = false;
 
-            React.createElement('div', { 
-              className: "hidden lg:block fixed w-8 h-8 rounded-full border-2 border-pink-400 pointer-events-none z-50 transition-all duration-200 mix-blend-difference",
-              style: { left: `${mousePosition.x}px`, top: `${mousePosition.y}px`, transform: `translate(-50%, -50%) scale(${cursorVariant === 'hover' ? 1.5 : 1})` }
-            },
-              React.createElement('div', { className: "absolute inset-0 bg-pink-400 rounded-full opacity-20 animate-ping" })
-            ),
+        function initCursor() {
+            // تفعيل المؤشر فقط إذا كانت الشاشة كبيرة (>= 1024px)
+            if (window.innerWidth >= 1024) {
+                cursor.style.display = 'block';
+                cursorActive = true;
+            } else {
+                cursor.style.display = 'none';
+                cursorActive = false;
+            }
+        }
 
-            React.createElement('div', { className: "fixed inset-0 overflow-hidden pointer-events-none" },
-              [...Array(50)].map((_, i) => 
-                React.createElement('div', {
-                  key: i,
-                  className: "absolute w-1 h-1 bg-pink-400 rounded-full opacity-50",
-                  style: {
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animation: `twinkle ${Math.random() * 5 + 3}s ease-in-out infinite`,
-                    animationDelay: `${Math.random() * 5}s`
-                  }
-                })
-              )
-            ),
+        initCursor();
+        window.addEventListener('resize', initCursor);
 
-            React.createElement('nav', { className: `fixed top-0 w-full z-40 transition-all duration-500 ${isScrolled ? `${isDarkMode ? 'bg-black/80' : 'bg-white/80'} backdrop-blur-2xl shadow-2xl` : 'bg-transparent'}` },
-              React.createElement('div', { className: "max-w-7xl mx-auto px-6 py-5 flex justify-between items-center" },
-                React.createElement('div', { className: "text-3xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent hover:scale-110 transition-transform cursor-pointer" }, 'Rafida'),
-                React.createElement('div', { className: "flex items-center gap-8" },
-                  React.createElement('div', { className: "hidden md:flex space-x-10" },
-                    ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) =>
-                      React.createElement('a', {
-                        key: item,
-                        href: `#${item.toLowerCase()}`,
-                        onMouseEnter: () => setCursorVariant('hover'),
-                        onMouseLeave: () => setCursorVariant('default'),
-                        className: `relative text-sm font-medium transition-all duration-300 group ${activeSection === item.toLowerCase() ? 'text-pink-400' : `${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'}`}`
-                      },
-                        item,
-                        React.createElement('span', { className: `absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-pink-400 to-purple-400 transform origin-left transition-transform duration-300 ${activeSection === item.toLowerCase() ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}` })
-                      )
-                    )
-                  ),
-                  React.createElement('button', {
-                    onClick: toggleTheme,
-                    onMouseEnter: () => setCursorVariant('hover'),
-                    onMouseLeave: () => setCursorVariant('default'),
-                    className: `relative w-14 h-14 rounded-full ${isDarkMode ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-900/10 hover:bg-gray-900/20'} backdrop-blur-lg border ${isDarkMode ? 'border-white/20' : 'border-gray-900/20'} flex items-center justify-center transition-all duration-300 hover:scale-110 group`
-                  },
-                    React.createElement('div', { className: "relative w-6 h-6" },
-                      React.createElement('svg', { className: `absolute inset-0 w-6 h-6 transition-all duration-500 ${isDarkMode ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'}`, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" },
-                        React.createElement('circle', { cx: "12", cy: "12", r: "5", strokeWidth: "2", className: "text-amber-500" }),
-                        React.createElement('path', { strokeLinecap: "round", strokeWidth: "2", d: "M12 1v6m0 6v6m11-7h-6m-6 0H1", className: "text-amber-500" })
-                      ),
-                      React.createElement('svg', { className: `absolute inset-0 w-6 h-6 transition-all duration-500 ${isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'}`, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" },
-                        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z", className: "text-purple-400" })
-                      )
-                    ),
-                    React.createElement('div', { className: `absolute inset-0 rounded-full ${isDarkMode ? 'bg-purple-400/20' : 'bg-amber-400/20'} blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300` })
-                  )
-                )
-              )
-            ),
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
 
-            React.createElement('section', { id: 'home', className: "min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden" },
-              React.createElement('div', { className: "absolute inset-0" },
-                React.createElement('div', { className: `absolute top-1/4 left-1/4 w-96 h-96 ${isDarkMode ? 'bg-pink-500' : 'bg-pink-300'} rounded-full mix-blend-multiply filter blur-3xl ${isDarkMode ? 'opacity-20' : 'opacity-30'} animate-blob` }),
-                React.createElement('div', { className: `absolute top-1/3 right-1/4 w-96 h-96 ${isDarkMode ? 'bg-purple-500' : 'bg-purple-300'} rounded-full mix-blend-multiply filter blur-3xl ${isDarkMode ? 'opacity-20' : 'opacity-30'} animate-blob animation-delay-2000` }),
-                React.createElement('div', { className: `absolute bottom-1/4 left-1/2 w-96 h-96 ${isDarkMode ? 'bg-blue-500' : 'bg-blue-300'} rounded-full mix-blend-multiply filter blur-3xl ${isDarkMode ? 'opacity-20' : 'opacity-30'} animate-blob animation-delay-4000` })
-              ),
-              React.createElement('div', { className: "max-w-7xl mx-auto text-center relative z-10" },
-                React.createElement('h1', { className: "text-7xl font-black mb-6" },
-                  React.createElement('span', { className: "bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent" }, 'Rafida')
-                ),
-                React.createElement('p', { className: "text-2xl mb-8" }, 'Software Engineering Student | Full Stack Developer'),
-                React.createElement('p', { className: `text-xl mb-12 max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}` },
-                  "Passionate developer transforming ideas into elegant digital solutions"
-                ),
-                React.createElement('div', { className: "flex justify-center gap-4" },
-                  React.createElement('a', { href: '#projects', className: "px-10 py-5 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full font-bold hover:scale-105 transition" }, 'View Projects'),
-                  React.createElement('a', { href: '#contact', className: "px-10 py-5 border-2 border-pink-400 rounded-full font-bold hover:bg-pink-400 hover:text-black transition" }, "Let's Connect")
-                )
-              )
-            ),
+        // ✅ FIX: تكبير المؤشر عند hover على العناصر التفاعلية
+        const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
 
-            React.createElement('div', { className: "text-center py-20 px-6" },
-              React.createElement('h2', { className: "text-5xl font-bold mb-8 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent" }, 'Portfolio Coming Soon'),
-              React.createElement('p', { className: "text-xl" }, 'Full portfolio with all sections loading...')
-            )
-          );
+        function animateCursor() {
+            if (cursorActive) {
+                const speed = 0.15;
+                cursorX += (mouseX - cursorX) * speed;
+                cursorY += (mouseY - cursorY) * speed;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+            }
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // ✅ FIX: Scroll Animations باستخدام IntersectionObserver
+        // هذا هو الكود الناقص الذي كان يجعل scroll-animate لا تعمل أبداً
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        ReactDOM.render(React.createElement(Portfolio), document.getElementById('root'));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    // بعد ظهور العنصر، لا نحتاج لمراقبته مجدداً
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        scrollElements.forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
